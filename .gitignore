@@ -1,0 +1,8 @@
+result
+.direnv/
+
+# Home Manager build artefacts
+home-manager-path
+
+# macOS metadata
+.DS_Store
