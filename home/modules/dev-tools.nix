@@ -7,6 +7,7 @@ let
     docker
     git
     nodejs_20
+    nodePackages_latest.pnpm
   ];
   hasDevenv = builtins.hasAttr "devenv" pkgs;
   devenvPackage =
