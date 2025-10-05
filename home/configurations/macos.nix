@@ -92,6 +92,9 @@ in {
     cursor-style      = bar
     copy-on-select    = true
 
+    # Keybindings managed via Home Manager to avoid manual edits.
+    keybind = shift+enter=text:\n
+
     # Catppuccin Mocha (inlined)
     palette = 0=#45475a
     palette = 1=#f38ba8
