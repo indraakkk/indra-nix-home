@@ -1,7 +1,8 @@
 { lib, pkgs, ... }:
 let
   inherit (lib) mkDefault;
-in {
+in
+{
   programs.fish = {
     enable = true;
     plugins = [
@@ -25,7 +26,7 @@ in {
       cmd_duration = {
         format = " [$duration]($style) ";
         style = "bold #EC7279";
-        show_notifications = true;
+        show_notifications = false;
       };
       battery = {
         full_symbol = "🔋 ";

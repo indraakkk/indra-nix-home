@@ -2,15 +2,21 @@
   description = "Indra's modular Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
     let
       lib = nixpkgs.lib;
       systems = [
@@ -19,23 +25,26 @@
       ];
       forAllSystems = lib.genAttrs systems;
 
-      mkPkgs = system: import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
         };
-      };
 
       baseModules = [
         ./home/profiles/minimal.nix
       ];
 
-      mkHome = {
-        system,
-        modules ? [ ],
-        username,
-        homeDirectory,
-      }:
+      mkHome =
+        {
+          system,
+          modules ? [ ],
+          username,
+          homeDirectory,
+        }:
         let
           pkgs = mkPkgs system;
         in
