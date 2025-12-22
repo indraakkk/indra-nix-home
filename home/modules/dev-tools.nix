@@ -8,6 +8,9 @@ let
     git
     nodejs_20
     nodePackages_latest.pnpm
+    terraform
+    google-cloud-sdk
+    tree
   ];
   hasDevenv = builtins.hasAttr "devenv" pkgs;
   devenvPackage =
