@@ -83,6 +83,7 @@ in {
       '';
   };
 
+
   # ---------- Ghostty config (macOS) ----------
   # NOTE: no `theme = ...` line; we inline the palette instead.
   xdg.configFile."ghostty/config".text = mkIf isDarwin ''
