@@ -19,6 +19,11 @@ let
     exec "$ghostty_bin" "$@"
   '';
 in {
+  imports = [
+    ../modules/db-atelier.nix
+    inputs.mac-app-util.homeManagerModules.default
+  ];
+
   home.username = mkDefault "indra";
   home.homeDirectory = mkDefault "/Users/indra";
 
