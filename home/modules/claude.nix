@@ -7,7 +7,7 @@
 let
   claudeBin = "${config.home.homeDirectory}/.local/bin";
   claudeData = "${config.home.homeDirectory}/.local/share/claude";
-  claudeVersion = "2.1.50"; # Pin version here for easy updates
+  claudeVersion = "2.1.53"; # Pin version here for easy updates
 in
 {
   # Add claude binary to PATH (native installer puts it in ~/.local/bin)
@@ -15,11 +15,15 @@ in
 
   # Install/update Claude Code using native installer (idempotent)
   home.activation.installClaudeCode = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        echo "Installing/updating Claude Code to version ${claudeVersion}..."
         export PATH="${pkgs.curl}/bin:${pkgs.coreutils}/bin:${pkgs.bash}/bin:${pkgs.perl}/bin:${pkgs.gnutar}/bin:${pkgs.gzip}/bin:$PATH"
 
-        # Run installer
-        ${pkgs.curl}/bin/curl -fsSL https://claude.ai/install.sh | ${pkgs.bash}/bin/bash -s ${claudeVersion}
+        # Only install if the pinned version binary doesn't exist yet
+        if [ ! -f "${claudeData}/versions/${claudeVersion}" ]; then
+          echo "Installing/updating Claude Code to version ${claudeVersion}..."
+          ${pkgs.curl}/bin/curl -fsSL https://claude.ai/install.sh | ${pkgs.bash}/bin/bash -s ${claudeVersion}
+        else
+          echo "Claude Code ${claudeVersion} already installed, skipping."
+        fi
 
         # Delete old versions (keep only the pinned version)
         for version in "${claudeData}/versions/"*; do

@@ -2,11 +2,11 @@
 let
   db-atelier = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "db-atelier";
-    version = "0.9.0";
+    version = "0.9.3";
 
     src = pkgs.fetchurl {
       url = "https://cdn.dbatelier.app/releases/DB%20Atelier_${version}_aarch64.dmg";
-      hash = "sha256-9F2FtNNoA98McPBDjXrRn3b+XqHuuyCU1wJGJx9RaSI=";
+      hash = "sha256-Q+4DRaapir2NKvquaZs4l6EvDU+8WL2nP0ZzEgKFJ8I=";
       name = "db-atelier-${version}.dmg";
     };
 

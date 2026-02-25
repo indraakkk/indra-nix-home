@@ -2,14 +2,18 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
   inherit (lib) mkAfter optional;
+  system = pkgs.stdenv.hostPlatform.system;
+  unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
   basePackages = with pkgs; [
     bun
     direnv
     docker
+    gh
     git
     nixfmt
     nodejs_20
@@ -21,7 +25,7 @@ let
   devenvPackage = if pkgs.stdenv.hostPlatform.isDarwin then [ ] else optional hasDevenv pkgs.devenv;
 in
 {
-  home.packages = mkAfter (basePackages ++ devenvPackage);
+  home.packages = mkAfter (basePackages ++ devenvPackage ++ [ unstable.biome ]);
 
   home.sessionPath = mkAfter [ "${config.home.homeDirectory}/.npm-global/bin" ];
 
