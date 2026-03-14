@@ -15,11 +15,14 @@ let
     docker
     gh
     git
+    git-filter-repo
     nixfmt
     nodejs_20
+    python3
     terraform
     google-cloud-sdk
     tree
+    uv
   ];
   hasDevenv = builtins.hasAttr "devenv" pkgs;
   devenvPackage = if pkgs.stdenv.hostPlatform.isDarwin then [ ] else optional hasDevenv pkgs.devenv;

@@ -45,13 +45,12 @@ echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
 
 ## 3. Install required Homebrew apps
 
-The macOS profile expects a couple of GUI/CLI tools to come from Homebrew:
+The macOS profile expects OrbStack to come from Homebrew (Ghostty is managed by Home Manager):
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"  # if Homebrew is not installed yet
 
 brew update
-brew install --cask ghostty
 brew install --cask orbstack
 ```
 

@@ -1,26 +1,12 @@
 { lib, pkgs, inputs, ... }:
 let
-  inherit (lib) mkAfter mkDefault mkIf optionals;
+  inherit (lib) mkAfter mkDefault mkIf;
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-  system = pkgs.stdenv.hostPlatform.system;
-  unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
   brewPrefix = "/opt/homebrew";
   brewBin = "${brewPrefix}/bin";
   brewSbin = "${brewPrefix}/sbin";
-  brewGhosttyBin = "${brewBin}/ghostty";
-  ghosttyWrapper = pkgs.writeShellScriptBin "ghostty" ''
-    ghostty_bin=${brewGhosttyBin}
-
-    if [ ! -x "$ghostty_bin" ]; then
-      printf '%s\n' "ghostty not found at $ghostty_bin" >&2
-      exit 1
-    fi
-
-    exec "$ghostty_bin" "$@"
-  '';
 in {
   imports = [
-    ../modules/db-atelier.nix
     inputs.mac-app-util.homeManagerModules.default
   ];
 
@@ -43,11 +29,6 @@ in {
     brewBin
     brewSbin
   ];
-
-  home.packages = mkAfter (
-    (optionals (!isDarwin) [ unstable.ghostty ])
-    ++ (optionals isDarwin [ ghosttyWrapper ])
-  );
 
   launchd.agents.orbstack-autostart = mkIf isDarwin {
     enable = true;
@@ -86,60 +67,16 @@ in {
           fi
         fi
       '';
-  };
 
-
-  # ---------- Ghostty config (macOS) ----------
-  # macOS Ghostty uses ~/Library/Application Support/com.mitchellh.ghostty/config
-  home.file."Library/Application Support/com.mitchellh.ghostty/config" = mkIf isDarwin {
-    force = true;
-    text = ''
-      # Shell
-      command = /Users/indra/.nix-profile/bin/fish --login --interactive
-
-      # Font
-      font-family = JetBrainsMono Nerd Font
-      font-size   = 16
-
-      # UI & rendering
-      window-decoration = true
-      cursor-style      = bar
-      copy-on-select    = true
-
-      # Keybindings
-      keybind = shift+enter=text:\n
-      keybind = super+n=new_window
-      keybind = super+t=new_tab
-      keybind = super+w=close_tab
-      keybind = super+d=new_split:down
-      keybind = super+r=new_split:right
-      keybind = super+[=previous_tab
-      keybind = super+]=next_tab
-
-      # Catppuccin Mocha (inlined)
-      palette = 0=#45475a
-      palette = 1=#f38ba8
-      palette = 2=#a6e3a1
-      palette = 3=#f9e2af
-      palette = 4=#89b4fa
-      palette = 5=#f5c2e7
-      palette = 6=#94e2d5
-      palette = 7=#a6adc8
-      palette = 8=#585b70
-      palette = 9=#f38ba8
-      palette = 10=#a6e3a1
-      palette = 11=#f9e2af
-      palette = 12=#89b4fa
-      palette = 13=#f5c2e7
-      palette = 14=#94e2d5
-      palette = 15=#bac2de
-      background           = #1e1e2e
-      foreground           = #cdd6f4
-      cursor-color         = #f5e0dc
-      cursor-text          = #11111b
-      selection-background = #353749
-      selection-foreground = #cdd6f4
-    '';
+    copyGhosttyToApplications =
+      lib.hm.dag.entryAfter [ "trampolineApps" ] ''
+        SRC="$HOME/Applications/Home Manager Trampolines/Ghostty.app"
+        DEST="/Applications/Ghostty.app"
+        if [ -d "$SRC" ]; then
+          rm -rf "$DEST"
+          cp -R "$SRC" "$DEST"
+        fi
+      '';
   };
 
 }

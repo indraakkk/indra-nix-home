@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mac-app-util.url = "github:hraban/mac-app-util";
+    nix-openclaw.url = "github:openclaw/nix-openclaw";
   };
 
   outputs =
@@ -33,6 +34,7 @@
           config = {
             allowUnfree = true;
           };
+          overlays = [ inputs.nix-openclaw.overlays.default ];
         };
 
       baseModules = [
@@ -85,5 +87,29 @@
           modules = [ ./home/configurations/linux.nix ];
         };
       };
+
+      templates = {
+        devenv = {
+          path = ./templates/devenv;
+          description = "Flake + devenv with interactive database and runtime selection";
+        };
+        default = self.templates.devenv;
+      };
+
+      apps = forAllSystems (system:
+        let
+          pkgs = mkPkgs system;
+        in {
+          new-flake = {
+            type = "app";
+            program = toString (pkgs.writeShellScriptBin "new-flake" ''
+              export PATH="${pkgs.lib.makeBinPath [pkgs.gum pkgs.git pkgs.gnused pkgs.coreutils]}:$PATH"
+              export TEMPLATE_DIR="${./templates/devenv}"
+              ${builtins.readFile ./bin/new-flake.sh}
+            '' + "/bin/new-flake");
+          };
+          default = self.apps.${system}.new-flake;
+        }
+      );
     };
 }
