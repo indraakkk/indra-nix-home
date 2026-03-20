@@ -13,8 +13,7 @@ home/
     shell.nix                    # fish + starship prompt
     dev-tools.nix                # node, python, bun, terraform, gcloud, direnv, vscode, biome
     claude.nix                   # Claude Code install & version pinning
-    ghostty.nix                  # Ghostty terminal (Catppuccin Mocha theme)
-    openclaw.nix                 # OpenClaw agent with Anthropic setup-token auth
+openclaw.nix                 # OpenClaw agent with Anthropic setup-token auth
   configurations/
     macos.nix                    # macOS-specific overrides
     linux.nix                    # Linux / WSL overrides

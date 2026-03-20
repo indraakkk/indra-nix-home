@@ -68,15 +68,6 @@ in {
         fi
       '';
 
-    copyGhosttyToApplications =
-      lib.hm.dag.entryAfter [ "trampolineApps" ] ''
-        SRC="$HOME/Applications/Home Manager Trampolines/Ghostty.app"
-        DEST="/Applications/Ghostty.app"
-        if [ -d "$SRC" ]; then
-          rm -rf "$DEST"
-          cp -R "$SRC" "$DEST"
-        fi
-      '';
   };
 
 }

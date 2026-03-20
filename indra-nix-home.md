@@ -1,4 +1,4 @@
-# Token-Lean Plan (Git-tracked Nix + Home Manager, with Ghostty)
+# Token-Lean Plan (Git-tracked Nix + Home Manager)
 
 ## 🎯 Goal
 
@@ -6,7 +6,6 @@ Recreate a reproducible development environment (Ubuntu, macOS, WSL) with **Nix 
 
 * Node.js, Bun, Docker CLI, direnv, devenv (MySQL/Postgres)
 * Fish shell + Starship prompt
-* Ghostty terminal on macOS (as main terminal)
 
 ---
 
@@ -92,25 +91,7 @@ Optional bootstrap to always use GitHub version:
 
 ---
 
-### 5️⃣ Ghostty via Home Manager (macOS)
-
-Ghostty is a GPU-accelerated terminal that pairs nicely with Fish + Starship. The macOS configuration in this repo already enables it through Home Manager:
-
-```nix
-# home/configurations/macos.nix
-home.packages = with pkgs; [ ghostty ];
-```
-
-After running `home-manager switch --flake ./#indra@macos`, launch Ghostty from Spotlight (`Ghostty.app`) or by running `ghostty` in a shell. In Ghostty's preferences, set **Fish** as the default shell to pick up the Home Manager-managed environment.
-
-**References:**
-
-* Ghostty homepage: [https://ghostty.org](https://ghostty.org)
-* Ghostty GitHub: [https://github.com/mkasberg/ghostty](https://github.com/mkasberg/ghostty)
-
----
-
-### 6️⃣ Docker group (Linux/WSL)
+### 5️⃣ Docker group (Linux/WSL)
 
 ```bash
 sudo groupadd docker 2>/dev/null || true
@@ -127,7 +108,7 @@ macOS: install Docker Desktop or Colima (HM only installs CLI).
 
 ---
 
-### 7️⃣ direnv + devenv for per-project DBs
+### 6️⃣ direnv + devenv for per-project DBs
 
 In your project folder:
 
@@ -151,7 +132,7 @@ devenv up    # starts databases
 
 ---
 
-### 8️⃣ Daily workflow
+### 7️⃣ Daily workflow
 
 ```bash
 # Edit configs in repo
@@ -161,7 +142,7 @@ $EDITOR ~/indra-nix-home/home/programs.nix
 home-manager switch --flake ~/indra-nix-home#indra@host
 
 # Version & push
-git add -A && git commit -m "update fish/starship/ghostty" && git push
+git add -A && git commit -m "update fish/starship config" && git push
 
 # On another machine:
 git clone https://github.com/you/indra-nix-home
@@ -170,20 +151,20 @@ home-manager switch --flake ./#indra@MacBook
 
 ---
 
-### 9️⃣ Validate environment
+### 8️⃣ Validate environment
 
 ```bash
 node -v && bun -v && docker --version && fish -v && starship --version
 ```
 
-If on macOS, open **Ghostty**, confirm the shell is Fish, and the prompt uses Starship.
+Open a terminal, confirm the shell is Fish, and the prompt uses Starship.
 
 ---
 
 ## ✅ You now have
 
 * Reproducible, cross-platform setup via Nix + Home Manager
-* Ghostty + Fish + Starship terminal experience
+* Fish + Starship terminal experience
 * Node, Bun, Docker CLI, direnv, and devenv (MySQL + Postgres)
 
 ---
@@ -197,5 +178,4 @@ If on macOS, open **Ghostty**, confirm the shell is Fish, and the prompt uses St
 * direnv: [https://direnv.net/](https://direnv.net/)
 * Fish: [https://fishshell.com/](https://fishshell.com/)
 * Starship: [https://starship.rs/](https://starship.rs/)
-* Ghostty: [https://ghostty.org](https://ghostty.org)
 * Docker post-install: [https://docs.docker.com/engine/install/linux-postinstall/](https://docs.docker.com/engine/install/linux-postinstall/)

@@ -45,7 +45,7 @@ echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
 
 ## 3. Install required Homebrew apps
 
-The macOS profile expects OrbStack to come from Homebrew (Ghostty is managed by Home Manager):
+The macOS profile expects OrbStack to come from Homebrew:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"  # if Homebrew is not installed yet
@@ -96,7 +96,7 @@ chsh -s $(which fish)
 
 ## 6. Verify the environment
 
-Open a new terminal session (Ghostty, iTerm2, or Terminal.app) and confirm the key tools:
+Open a new terminal session (iTerm2 or Terminal.app) and confirm the key tools:
 
 ```bash
 fish --version
@@ -104,15 +104,10 @@ starship --version
 node -v
 bun -v
 direnv --version
-ghostty --version
 docker context ls | grep '\*'   # active Docker context should be orbstack
 orb status
 ls -l /var/run/docker.sock
 ```
-
-If the Starship prompt does not appear in Ghostty, make sure Ghostty uses `fish` as its default shell (Preferences → Shell).
-
----
 
 If OrbStack reports that the daemon is stopped, run `orb` to start it manually and re-run `home-manager switch`.
 
@@ -147,8 +142,7 @@ On a new Mac, repeat steps 2–4—clone the repo and run `home-manager switch -
 
 ## 9. Next steps
 
-- Launch Ghostty from Spotlight or `ghostty` in a shell; it is managed by Home Manager and updated with the rest of the configuration.
 - Extend the configuration by adding new modules under `home/modules` and importing them from `home/profiles/minimal.nix`.
 - Create optional profiles (e.g. `home/profiles/dev.nix`) when the configuration grows.
 
-With these steps, Home Manager keeps Fish + Starship styling, OrbStack autostart, and Ghostty defaults in sync across your macOS (M4) workstations.
+With these steps, Home Manager keeps Fish + Starship styling and OrbStack autostart in sync across your macOS (M4) workstations.
