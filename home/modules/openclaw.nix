@@ -100,7 +100,7 @@ in
         ];
 
         agents.defaults = {
-          model.primary = "anthropic/claude-sonnet-4-6";
+          model.primary = "anthropic/claude-opus-4-6";
           contextTokens = 1000000;
           compaction.mode = "safeguard";
           maxConcurrent = 4;
