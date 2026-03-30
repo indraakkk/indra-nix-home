@@ -161,11 +161,37 @@ Open a terminal, confirm the shell is Fish, and the prompt uses Starship.
 
 ---
 
+## 🖥️ VS Code settings management
+
+Home Manager installs VS Code and the `nix-ide` extension declaratively. Font and ligature preferences are **merged** into your existing `settings.json` via an activation script — they are never overwritten.
+
+### Managed settings
+
+| Key | Value |
+| --- | ----- |
+| `editor.fontFamily` | `FiraCode Nerd Font Mono, monospace` |
+| `editor.fontLigatures` | `true` |
+| `terminal.integrated.fontFamily` | `FiraCode Nerd Font Mono` |
+
+### How it works
+
+* The activation script (`mergeVscodeSettings` in `home/modules/dev-tools.nix`) reads the existing `~/Library/Application Support/Code/User/settings.json`, merges the managed keys, and writes back only if something changed.
+* All other settings you configure manually in VS Code are preserved.
+* The merge is **idempotent** — running `home-manager switch` multiple times produces no unnecessary writes.
+* On a fresh machine where `settings.json` does not exist, it creates the file with only the managed settings; configure everything else in VS Code as usual.
+
+### Adding more managed settings
+
+Edit the `managed` object inside the Node.js activation script in `home/modules/dev-tools.nix`.
+
+---
+
 ## ✅ You now have
 
 * Reproducible, cross-platform setup via Nix + Home Manager
 * Fish + Starship terminal experience
 * Node, Bun, Docker CLI, direnv, and devenv (MySQL + Postgres)
+* VS Code with managed font/ligature settings (merge, not replace)
 
 ---
 

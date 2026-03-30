@@ -113,7 +113,23 @@ If OrbStack reports that the daemon is stopped, run `orb` to start it manually a
 
 ---
 
-## 7. Daily workflow
+## 7. VS Code
+
+Home Manager installs VS Code and merges font/ligature settings into your existing `settings.json` without overwriting other preferences.
+
+After `home-manager switch`, verify the managed settings are present:
+
+```bash
+cat ~/Library/Application\ Support/Code/User/settings.json | grep fontFamily
+# "editor.fontFamily": "FiraCode Nerd Font Mono, monospace",
+# "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono"
+```
+
+The merge is idempotent — subsequent runs skip the write if settings are already up to date. To manage additional VS Code settings declaratively, edit the `managed` object in `home/modules/dev-tools.nix`.
+
+---
+
+## 8. Daily workflow
 
 1. Edit modules in this repository (`home/modules`, `home/profiles`, etc.).
 2. Re-build when you are ready:
@@ -131,7 +147,7 @@ On a new Mac, repeat steps 2–4—clone the repo and run `home-manager switch -
 
 ---
 
-## 8. Troubleshooting
+## 9. Troubleshooting
 
 - **OrbStack didn’t start**: run `launchctl kickstart gui/$(id -u)/dev.orbstack.autostart` or invoke `orb` manually; the launchd agent is installed as part of the Home Manager profile.
 - **Docker CLI still points at `default`**: `docker context use orbstack` switches back; the activation hook attempts this automatically at build time.
@@ -140,7 +156,7 @@ On a new Mac, repeat steps 2–4—clone the repo and run `home-manager switch -
 
 ---
 
-## 9. Next steps
+## 10. Next steps
 
 - Extend the configuration by adding new modules under `home/modules` and importing them from `home/profiles/minimal.nix`.
 - Create optional profiles (e.g. `home/profiles/dev.nix`) when the configuration grows.
