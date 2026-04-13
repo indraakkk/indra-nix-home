@@ -53,7 +53,11 @@
     bufferline = {
       enable = true;
       settings.options = {
+        numbers = "ordinal";
         diagnostics = "nvim_lsp";
+        show_close_icon = false;
+        show_buffer_close_icons = false;
+        separator_style = "slant";
         offsets = [
           {
             filetype = "neo-tree";
@@ -80,6 +84,23 @@
             "dashboard"
           ];
         };
+      };
+    };
+
+    render-markdown = {
+      enable = true;
+      settings = {
+        heading = {
+          icons = [ "# " "## " "### " "#### " "##### " "###### " ];
+          sign = false;
+        };
+        code = {
+          sign = false;
+          width = "block";
+          right_pad = 1;
+        };
+        dash.width = 80;
+        pipe_table.style = "full";
       };
     };
 

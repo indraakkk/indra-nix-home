@@ -28,9 +28,14 @@ Tip: Press `Space` and wait — Which-key shows all available commands.
 
 | Key | Action |
 |-----|--------|
+| `Space 1-9` | Jump to buffer by number |
 | `Space bn` | Next buffer |
 | `Space bp` | Previous buffer |
 | `Space bd` | Close buffer |
+| `Space bo` | Close all other buffers |
+| `Space br` | Close buffers to right |
+| `Space bl` | Close buffers to left |
+| `Space bP` | Pin/unpin buffer |
 | `Space w` | Save file |
 
 ## Splits & Windows
@@ -67,10 +72,24 @@ Tip: Press `Space` and wait — Which-key shows all available commands.
 
 | Key | Action |
 |-----|--------|
-| `Space gg` | Open Neogit (git interface) |
+| `Space gg` | Open Neogit (full git client) |
 | `Space gd` | Open diff view |
 | `Space gh` | File history |
 | `Space gq` | Close diff view |
+
+### Inside Neogit (`Space gg`)
+
+| Key | Action |
+|-----|--------|
+| `s` / `u` | Stage / Unstage file or hunk |
+| `c c` | Commit (opens message editor) |
+| `p p` | Push |
+| `F F` | Pull |
+| `Tab` | Expand / collapse diffs |
+| `b` | Branch operations |
+| `r` | Rebase |
+| `Z` | Stash |
+| `?` | Show all Neogit keybindings |
 | `]h` | Next git hunk |
 | `[h` | Previous git hunk |
 | `Space hs` | Stage hunk |

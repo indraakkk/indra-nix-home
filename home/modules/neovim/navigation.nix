@@ -93,13 +93,80 @@
           }
           {
             __unkeyed-1 = "<leader>bn";
-            __unkeyed-2 = "<cmd>bnext<CR>";
+            __unkeyed-2 = "<cmd>BufferLineCycleNext<CR>";
             desc = "Next Buffer";
           }
           {
             __unkeyed-1 = "<leader>bp";
-            __unkeyed-2 = "<cmd>bprevious<CR>";
+            __unkeyed-2 = "<cmd>BufferLineCyclePrev<CR>";
             desc = "Previous Buffer";
+          }
+          {
+            __unkeyed-1 = "<leader>bo";
+            __unkeyed-2 = "<cmd>BufferLineCloseOthers<CR>";
+            desc = "Close Other Buffers";
+          }
+          {
+            __unkeyed-1 = "<leader>br";
+            __unkeyed-2 = "<cmd>BufferLineCloseRight<CR>";
+            desc = "Close Buffers to Right";
+          }
+          {
+            __unkeyed-1 = "<leader>bl";
+            __unkeyed-2 = "<cmd>BufferLineCloseLeft<CR>";
+            desc = "Close Buffers to Left";
+          }
+          {
+            __unkeyed-1 = "<leader>bP";
+            __unkeyed-2 = "<cmd>BufferLineTogglePin<CR>";
+            desc = "Pin Buffer";
+          }
+
+          # jump to buffer by number
+          {
+            __unkeyed-1 = "<leader>1";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 1<CR>";
+            desc = "Go to Buffer 1";
+          }
+          {
+            __unkeyed-1 = "<leader>2";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 2<CR>";
+            desc = "Go to Buffer 2";
+          }
+          {
+            __unkeyed-1 = "<leader>3";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 3<CR>";
+            desc = "Go to Buffer 3";
+          }
+          {
+            __unkeyed-1 = "<leader>4";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 4<CR>";
+            desc = "Go to Buffer 4";
+          }
+          {
+            __unkeyed-1 = "<leader>5";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 5<CR>";
+            desc = "Go to Buffer 5";
+          }
+          {
+            __unkeyed-1 = "<leader>6";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 6<CR>";
+            desc = "Go to Buffer 6";
+          }
+          {
+            __unkeyed-1 = "<leader>7";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 7<CR>";
+            desc = "Go to Buffer 7";
+          }
+          {
+            __unkeyed-1 = "<leader>8";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 8<CR>";
+            desc = "Go to Buffer 8";
+          }
+          {
+            __unkeyed-1 = "<leader>9";
+            __unkeyed-2 = "<cmd>BufferLineGoToBuffer 9<CR>";
+            desc = "Go to Buffer 9";
           }
 
           # window splits
