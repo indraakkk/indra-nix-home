@@ -9,7 +9,7 @@ in {
   xdg.enable = mkDefault true;
 
   home.sessionVariables = mkDefault {
-    EDITOR = "vim";
+    EDITOR = "nvim";
     SHELL = "fish";
   };
 

@@ -6,6 +6,8 @@
     ../modules/kitty.nix
     ../modules/dev-tools.nix
     ../modules/claude.nix
+    ../modules/starship-claude
     ../modules/openclaw.nix
+    ../modules/neovim
   ];
 }

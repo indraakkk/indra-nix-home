@@ -14,6 +14,10 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +35,33 @@
       ];
       forAllSystems = lib.genAttrs systems;
 
+      # Overlay: copy openclaw.plugin.json manifests from extensions/ (source)
+      # into dist/extensions/ (built).  The upstream nix build compiles TS→JS
+      # into dist/extensions/ but doesn't carry the JSON manifests.  Without
+      # them the plugin-based architecture silently skips all channels.
+      openclawManifestFixOverlay = final: prev:
+        let
+          patchedGateway = prev.openclaw-gateway.overrideAttrs (old: {
+            dontFixup = false;
+            postFixup = ''
+              src_ext="$out/lib/openclaw/extensions"
+              dst_ext="$out/lib/openclaw/dist/extensions"
+              if [ -d "$src_ext" ] && [ -d "$dst_ext" ]; then
+                for src_dir in "$src_ext"/*/; do
+                  name="$(basename "$src_dir")"
+                  manifest="$src_dir/openclaw.plugin.json"
+                  if [ -f "$manifest" ] && [ -d "$dst_ext/$name" ]; then
+                    cp "$manifest" "$dst_ext/$name/openclaw.plugin.json"
+                  fi
+                done
+              fi
+            '';
+          });
+        in {
+          openclaw-gateway = patchedGateway;
+          openclaw = prev.openclaw.override { openclaw-gateway = patchedGateway; };
+        };
+
       mkPkgs =
         system:
         import nixpkgs {
@@ -38,11 +69,15 @@
           config = {
             allowUnfree = true;
           };
-          overlays = [ inputs.nix-openclaw.overlays.default ];
+          overlays = [
+            inputs.nix-openclaw.overlays.default
+            openclawManifestFixOverlay
+          ];
         };
 
       baseModules = [
         inputs.agenix.homeManagerModules.age
+        inputs.nixvim.homeModules.nixvim
         ./home/profiles/minimal.nix
       ];
 

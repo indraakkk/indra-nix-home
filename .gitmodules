@@ -1,0 +1,6 @@
+[submodule "nix-openclaw"]
+	path = nix-openclaw
+	url = git@github.com-indraakkk:openclaw/nix-openclaw.git
+[submodule "r17x-universe"]
+	path = r17x-universe
+	url = git@github.com-indraakkk:r17x/universe.git
