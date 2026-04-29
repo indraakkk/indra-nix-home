@@ -7,7 +7,7 @@
 let
   claudeBin = "${config.home.homeDirectory}/.local/bin";
   claudeData = "${config.home.homeDirectory}/.local/share/claude";
-  claudeVersion = "2.1.104"; # Pin version here for easy updates
+  claudeVersion = "2.1.117"; # Pin version here for easy updates
 in
 {
   # Add claude binary to PATH (native installer puts it in ~/.local/bin)

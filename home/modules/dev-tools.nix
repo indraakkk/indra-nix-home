@@ -23,6 +23,7 @@ let
     google-cloud-sdk
     tree
     uv
+    yq
   ];
   hasDevenv = builtins.hasAttr "devenv" pkgs;
   devenvPackage = if pkgs.stdenv.hostPlatform.isDarwin then [ ] else optional hasDevenv pkgs.devenv;
